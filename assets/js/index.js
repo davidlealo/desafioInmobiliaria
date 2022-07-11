@@ -66,6 +66,33 @@ function templateDepartamento(departamento){
   `;
 }
 
+function buscar(contenedorPropiedades){
+let inputCuartos = Number(document.querySelector('#inputCuartos').value);
+let inputDesdeMetros = Number(document.querySelector('#inputDesdeMetros').value);
+let inputHastaMetros = Number(document.querySelector('#inputHastaMetros').value);
+
+if (inputCuartos <= 0){
+  alert('Por favor completa todos los campos antes de presionar el botón de búsqueda')
+  return;
+} else if (inputDesdeMetros <= 0){
+  alert('Por favor completa todos los campos antes de presionar el botón de búsqueda')
+  return;
+} else if (inputHastaMetros <= 0){
+  alert('Por favor completa todos los campos antes de presionar el botón de búsqueda')
+  return;
+}
+let html = "";
+let contador = 0;
+  for (const departamento of propiedadesJSON){
+    if(departamento.cuartos >= inputCuartos && departamento.metros >= inputDesdeMetros && departamento.metros <= inputHastaMetros){
+    html += templateDepartamento(departamento);
+    contador += 1;
+    }
+  }
+  contenedorPropiedades.innerHTML = html;
+  contadorTotal.innerHTML = contador;
+return;
+}
 
   function cargaInicial(contenedorPropiedades){
   let html = "";
@@ -73,7 +100,9 @@ function templateDepartamento(departamento){
   for (const departamento of propiedadesJSON){
     html += templateDepartamento(departamento);
     contador += 1;
+  
   }
+
   contenedorPropiedades.innerHTML = html;
   contadorTotal.innerHTML = contador;
 }
@@ -83,4 +112,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
   const contenedorPropiedades = document.querySelector('.propiedades');
   cargaInicial(contenedorPropiedades);
   const contadorTotal = document.querySelector('#contadorTotal');
+  const botonBuscar = document.querySelector('#buscarPropiedad');
+  botonBuscar.addEventListener('click', buscar);
 });
