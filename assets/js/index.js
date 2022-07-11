@@ -48,4 +48,39 @@ const propiedadesJSON = [
       metros: 500
     }
   ];
-  
+
+function templateDepartamento(departamento){
+  return `
+  <div class="propiedad">
+      <div class="img" style="background-image: url('${departamento.src}')"></div>
+        <section>
+          <h5>${departamento.nombre}</h5>
+          <div class="d-flex justify-content-between">
+            <p>Cuartos: ${departamento.cuartos}</p>
+            <p>Metros: ${departamento.metros}</p>
+          </div>
+            <p class="my-3">${departamento.descripcion}</p>
+            <button class="btn btn-info ">Ver más</button>
+        </section>
+      </div>
+  `;
+}
+
+
+  function cargaInicial(contenedorPropiedades){
+  let html = "";
+  let contador = 0;
+  for (const departamento of propiedadesJSON){
+    html += templateDepartamento(departamento);
+    contador += 1;
+  }
+  contenedorPropiedades.innerHTML = html;
+  contadorTotal.innerHTML = contador;
+}
+
+
+document.addEventListener('DOMContentLoaded', (event) => {
+  const contenedorPropiedades = document.querySelector('.propiedades');
+  cargaInicial(contenedorPropiedades);
+  const contadorTotal = document.querySelector('#contadorTotal');
+});
