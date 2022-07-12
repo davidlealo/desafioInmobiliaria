@@ -79,7 +79,7 @@ function templateDepartamento(departamento){
   contadorTotal.innerHTML = contador;
 }
 
-function buscar(contenedorPropiedades){
+function buscar(){
   let inputCuartos = Number(document.querySelector('#inputCuartos').value);
   let inputDesdeMetros = Number(document.querySelector('#inputDesdeMetros').value);
   let inputHastaMetros = Number(document.querySelector('#inputHastaMetros').value);
@@ -97,11 +97,12 @@ function buscar(contenedorPropiedades){
   let html = "";
   let contador = 0;
     for (const departamento of propiedadesJSON){
-      if(departamento.cuartos >= inputCuartos && departamento.metros >= inputDesdeMetros && departamento.metros <= inputHastaMetros){
+      if(departamento.cuartos >= inputCuartos && (departamento.metros >= inputDesdeMetros && departamento.metros <= inputHastaMetros)){
       html += templateDepartamento(departamento);
       contador += 1;
       }
     }
+    const contenedorPropiedades = document.querySelector('.propiedades');
     contenedorPropiedades.innerHTML = html;
     contadorTotal.innerHTML = contador;
   }
